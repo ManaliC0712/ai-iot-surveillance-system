@@ -1,6 +1,6 @@
 import cv2
 import threading
-import beepy
+import winsound  # replaces beepy
 
 def noise():
     def run():
@@ -25,7 +25,7 @@ def noise():
 
                 # Print and beep on motion detected
                 print("Motion detected!")
-                beepy.beep(sound=1)  # You can change the beep sound type
+                winsound.Beep(1000, 300)  # 1000 Hz for 300 milliseconds
 
             else:
                 cv2.putText(frame1, "NO-MOTION", (10,80), cv2.FONT_HERSHEY_SIMPLEX, 2, (0,0,255), 2)
@@ -37,6 +37,6 @@ def noise():
                 cv2.destroyAllWindows()
                 break
 
-    # Run in a separate thread so Tkinter doesn’t freeze
+    # Run in a separate thread so GUI doesn’t freeze
     thread = threading.Thread(target=run, daemon=True)
     thread.start()
